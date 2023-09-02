@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
 
   Future getall() async {
     http.Response response = await http
-        .get(Uri.parse("http://192.168.0.100:8000/getTemparatureDataApp"));
+        .get(Uri.parse("http://192.168.0.100:8080/getTemparatureDataApp"));
 
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
@@ -53,10 +53,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Material App Bar'),
+          title: Center(child: Text('My Home App')),
         ),
         body: RefreshIndicator(
           key: _refreshIndicatorKey,
@@ -73,22 +73,97 @@ class _MyAppState extends State<MyApp> {
                 List unis = sn.data;
                 return GestureDetector(
                   onTap: () {
+                    //
+                    // Text(" ID: ${unis.last["ID"]}"),
                     _refreshIndicatorKey.currentState?.show();
                   },
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: Card(
-                      child: ListTile(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Temp: ${unis.last["tempData"]} *C"),
-                             Text("Humidity: ${unis.last["humidity"]} %"),
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Container(
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.red,
+                                ),
+                                child: Card(
+                                  child: ListTile(
+                                    title: Text(
+                                        "Temp: ${unis.last["tempData"]} *C"),
+                                  ),
+                                ),
+                              ),
+                            ),
+                             SizedBox(
+                          width: 20,
+                        ),
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Container(
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.red,
+                                ),
+                                child: Card(
+                                  child: ListTile(
+                                    title: Text(
+                                        "Temp: ${unis.last["tempData"]} *C"),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                        subtitle: Text(" ID: ${unis.last["ID"]}"),
-                      ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.loose,
+                          child: Container(
+                            height: 80,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.red,
+                            ),
+                            child: Card(
+                              child: ListTile(
+                                title:
+                                    Text("Temp: ${unis.last["tempData"]} *C"),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.loose,
+                          child: Container(
+                            height: 80,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.red,
+                            ),
+                            child: Card(
+                              child: ListTile(
+                                title:
+                                    Text("Temp: ${unis.last["tempData"]} *C"),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
